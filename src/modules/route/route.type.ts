@@ -16,3 +16,42 @@ export type Route = {
   status?: RouteStatus;
   Assignment?: Assignment[];
 };
+
+export type CreateRoutePayload = {
+  startLocation: string;
+  endLocation: string;
+  distance: number;
+  estimatedTime: number;
+  requiredLicense?: string | null;
+  startLat?: number | null;
+  startLng?: number | null;
+};
+
+export type ScoreWeights = {
+  license: number;
+  availability: number;
+  workload: number;
+  lru: number;
+  proximity: number;
+};
+
+export type AssignResult = {
+  driver: {
+    id: string;
+    name?: string;
+  };
+  assignment: {
+    id: string;
+    driverId: string;
+    routeId: string;
+    assignedAt: Date;
+    finishedAt?: Date | null;
+  };
+  scoreDetails: {
+    licenseMatch: number;
+    availability: number;
+    workloadScore: number;
+    lruScore: number;
+    proximityScore: number;
+  };
+} | null;
