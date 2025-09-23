@@ -1,6 +1,8 @@
 import { RouteStatus } from "@prisma/client";
 
-export type User = {
+import { Assignment } from "../assignment/assignment.type";
+
+export type Route = {
   id?: string;
   startLocation?: string;
   endLocation?: string;
@@ -12,4 +14,5 @@ export type User = {
   createdAt?: Date;
   updatedAt?: Date;
   status?: RouteStatus;
+  Assignment?: Assignment[];
 };

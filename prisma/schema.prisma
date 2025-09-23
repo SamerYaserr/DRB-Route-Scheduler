@@ -22,23 +22,24 @@ enum RouteStatus {
 }
 
 model Driver {
-  id               String    @id
+  id               String       @id
   name             String
   licenseType      String
-  availability     Boolean   @default(true)
+  availability     Boolean      @default(true)
   lastAssignedAt   DateTime?
-  totalAssignments Int       @default(0)
+  totalAssignments Int          @default(0)
   lat              Float?
   lng              Float?
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+  Assignment       Assignment[]
 
   @@index([availability])
   @@index([lastAssignedAt])
 }
 
 model Route {
-  id              String      @id @default(uuid())
+  id              String       @id @default(uuid())
   startLocation   String
   endLocation     String
   distance        Float
@@ -46,10 +47,24 @@ model Route {
   requiredLicense String?
   startLat        Float?
   startLng        Float?
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
-  status          RouteStatus @default(unassigned)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  status          RouteStatus  @default(unassigned)
+  Assignment      Assignment[]
 
   @@index([createdAt])
   @@index([status])
+}
+
+model Assignment {
+  id         String    @id @default(uuid())
+  driver     Driver    @relation(fields: [driverId], references: [id])
+  driverId   String
+  route      Route     @relation(fields: [routeId], references: [id])
+  routeId    String
+  assignedAt DateTime  @default(now())
+  finishedAt DateTime?
+
+  @@index([driverId])
+  @@index([routeId])
 }
