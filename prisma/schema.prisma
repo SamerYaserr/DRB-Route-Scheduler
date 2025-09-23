@@ -22,7 +22,7 @@ enum RouteStatus {
 }
 
 model Driver {
-  id               String       @id
+  id               String       @id @default(uuid())
   name             String
   licenseType      String
   availability     Boolean      @default(true)

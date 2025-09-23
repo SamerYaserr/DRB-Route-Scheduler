@@ -13,3 +13,11 @@ export type Driver = {
   updatedAt?: Date;
   Assignment?: Assignment[];
 };
+
+export type CreateDriverInput = {
+  name: string;
+  licenseType: string;
+  availability?: boolean;
+  lat?: number | null;
+  lng?: number | null;
+};

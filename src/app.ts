@@ -4,6 +4,7 @@ import { rateLimit } from "express-rate-limit";
 
 import { notFound } from "./middlewares/notFound.middleware";
 import { errorHandler } from "./middlewares/error.middleware";
+import routes from "./routes";
 
 const limiter = rateLimit({
   windowMs: 10 * 60 * 1000,
@@ -23,6 +24,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 // API Routes
+app.use("/api", routes);
 
 // 404 catcher — should come after routes
 app.use(notFound);
