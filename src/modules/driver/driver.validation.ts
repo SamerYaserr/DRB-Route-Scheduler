@@ -14,3 +14,9 @@ export const createDriverZodSchema = z.object({
     })
     .strict(),
 });
+
+export const getDriverHistoryZodSchema = z.object({
+  params: z.object({
+    id: z.string().uuid("Invalid driver ID").min(1, "Driver ID is required"),
+  }),
+});
