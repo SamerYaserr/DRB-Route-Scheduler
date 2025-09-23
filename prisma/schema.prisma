@@ -12,3 +12,19 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Driver {
+  id               String    @id
+  name             String
+  licenseType      String
+  availability     Boolean   @default(true)
+  lastAssignedAt   DateTime?
+  totalAssignments Int       @default(0)
+  lat              Float?
+  lng              Float?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([availability])
+  @@index([lastAssignedAt])
+}
